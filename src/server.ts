@@ -12,12 +12,18 @@ connectDB();
 const app = express();
 
 app.use(cors({
-  origin: [
-    "https://frontend-townket.vercel.app",
-    "https://frontend-townket-git-main-james-samuel-s-projects.vercel.app"
-  ],
-  credentials: true
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+
+    if (origin.includes("vercel.app")) {
+      return callback(null, true);
+    }
+
+    return callback(new Error("Not allowed by CORS"));
+  },
+  credentials: true,
 }));
+
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
