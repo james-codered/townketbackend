@@ -12,7 +12,10 @@ connectDB();
 const app = express();
 
 app.use(cors({
-  origin: "https://frontend-townket.vercel.app",
+  origin: [
+    "https://frontend-townket.vercel.app",
+    "https://frontend-townket-git-main-james-samuel-s-projects.vercel.app"
+  ],
   credentials: true
 }));
 app.use(express.json());
