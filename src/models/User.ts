@@ -6,6 +6,8 @@ export interface IUser extends Document {
   password: string;
   bio?: string;
   avatar?: string;
+  resetPasswordToken?: string;
+  resetPasswordExpires?: Date;
 }
 
 const userSchema = new mongoose.Schema<IUser>(
@@ -14,7 +16,10 @@ const userSchema = new mongoose.Schema<IUser>(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     bio: String,
-    avatar: String
+    avatar: String,
+
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
   },
   { timestamps: true }
 );
