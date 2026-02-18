@@ -3,6 +3,21 @@ import bcrypt from "bcryptjs";
 import User from "../models/User";
 import generateToken from "../utils/generateToken";
 
+export const forgotPassword = async (req: Request, res: Response) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  // For now we are not sending real email
+  // Later we can implement reset token + email service
+
+  res.json({ message: "Password reset link sent (demo)" });
+};
+
 export const register = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
 
