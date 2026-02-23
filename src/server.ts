@@ -5,7 +5,9 @@ import connectDB from "./config/db";
 import authRoutes from "./routes/auth.routes";
 import postRoutes from "./routes/post.routes";
 import { errorHandler } from "./middleware/error.middleware";
+import businessRoutes from "./routes/business.routes";
 
+app.use("/api/business", businessRoutes);
 dotenv.config();
 connectDB();
 
