@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth.routes";
 import postRoutes from "./routes/post.routes";
 import businessRoutes from "./routes/business.routes";
 import { errorHandler } from "./middleware/error.middleware";
+import listingRoutes from "./routes/listing.routes";
 
 dotenv.config();
 connectDB();
@@ -18,6 +19,7 @@ app.use(
     credentials: true,
   })
 );
+app.use("/api/listings", listingRoutes);
 
 app.use(express.json());
 
