@@ -1,8 +1,10 @@
+import mongoose, { Document } from "mongoose";
+
 export interface IUser extends Document {
   username: string;
   email: string;
   password: string;
-  role: "customer" | "entrepreneur"; // ✅ ADD THIS
+  role: "customer" | "entrepreneur";
   bio?: string;
   avatar?: string;
   resetPasswordToken?: string;
@@ -15,17 +17,20 @@ const userSchema = new mongoose.Schema<IUser>(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
 
-    role: { 
-      type: String, 
-      enum: ["customer", "entrepreneur"], 
-      default: "customer" 
-    }, // ✅ ADD THIS
+    role: {
+      type: String,
+      enum: ["customer", "entrepreneur"],
+      default: "customer",
+    },
 
     bio: String,
     avatar: String,
-
     resetPasswordToken: String,
     resetPasswordExpires: Date,
   },
   { timestamps: true }
 );
+
+const User = mongoose.model<IUser>("User", userSchema);
+
+export default User;
