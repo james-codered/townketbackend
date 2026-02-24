@@ -22,12 +22,16 @@ export const register = async (req: Request, res: Response) => {
   role,   // ✅ ADD THIS
 });
 
-    res.status(201).json({
-      _id: user._id,
-      username: user.username,
-      email: user.email,
-      token: generateToken(user._id.toString()),
-    });
+res.status(201).json({
+  user: {
+    _id: user._id,
+    username: user.username,
+    email: user.email,
+    role: user.role,   // ✅ ADD THIS
+  },
+  token: generateToken(user._id.toString()),
+});
+    
   } catch {
     res.status(500).json({ message: "Server error" });
   }
