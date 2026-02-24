@@ -7,8 +7,7 @@ import generateToken from "../utils/generateToken";
 /* ================= REGISTER ================= */
 export const register = async (req: Request, res: Response) => {
   try {
-    const { username, email, password } = req.body;
-
+    const { username, email, password, role } = req.body;
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({ message: "User already exists" });
