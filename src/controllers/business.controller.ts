@@ -1,7 +1,22 @@
 import { Request, Response } from "express";
 import Business from "../models/business.model";
 
-// Create or Update Business Profile
+// ================= GET MY BUSINESS =================
+export const getMyBusiness = async (req: any, res: Response) => {
+  try {
+    const business = await Business.findOne({ userId: req.user.id });
+
+    if (!business) {
+      return res.status(200).json(null);
+    }
+
+    res.json(business);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// ================= SAVE OR UPDATE BUSINESS =================
 export const saveBusinessProfile = async (req: any, res: Response) => {
   try {
     const {
@@ -19,7 +34,6 @@ export const saveBusinessProfile = async (req: any, res: Response) => {
     let business = await Business.findOne({ userId });
 
     if (business) {
-      // Update existing
       business.businessName = businessName;
       business.description = description;
       business.contact = contact;
@@ -29,11 +43,9 @@ export const saveBusinessProfile = async (req: any, res: Response) => {
       business.longitude = longitude;
 
       await business.save();
-
       return res.json(business);
     }
 
-    // Create new
     business = await Business.create({
       userId,
       businessName,
